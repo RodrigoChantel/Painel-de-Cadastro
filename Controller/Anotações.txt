@@ -1,0 +1,2 @@
+Em login, criar um "if" para validar dados e em caso de validação "TRUE", criar _SESSION, caso contrário o Redirect.php
+precisa redirecionar página para "Index.php".

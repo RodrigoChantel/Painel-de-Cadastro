@@ -28,6 +28,7 @@ body{
     transform: translate(-50%, -50%);
     border-radius: 25px;
     box-shadow: 0px 5px 25px #635288;
+    text-align: center;
 }
 .form-login h3 {
     text-align: center;
@@ -82,4 +83,7 @@ a:hover{
 ::placeholder{
     padding-left: 10px;
     opacity: 50%;
+}
+#recuperar-click{
+    display: none;
 }

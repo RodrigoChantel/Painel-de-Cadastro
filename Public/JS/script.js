@@ -16,3 +16,4 @@ function Empresa() {
     document.getElementById('funcionario-click').style.display = 'none';
     document.getElementById('Inicio-click').style.display = 'none';
 }
+

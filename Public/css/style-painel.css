@@ -67,7 +67,7 @@ body{
     transform: translate(-50%, -50%);
 }
 .botao-de-navegacao{
-    max-width: 30%;
+    max-width: 80%;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -236,4 +236,15 @@ select{
     margin-left: auto;
     margin-right: auto;
     margin-top: 10%;
+}
+.session1 {
+    text-decoration: none;
+    color: #ffffff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 25px;
+    margin-top: 25px;
+    text-align:center
+}
+.logout{
+    margin-left: auto;
 }

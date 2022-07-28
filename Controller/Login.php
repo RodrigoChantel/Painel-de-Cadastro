@@ -25,14 +25,19 @@ class login{
 
         $result = mysqli_query($conexao, $query);
         $row = mysqli_fetch_assoc($result);
-        //var_dump($row);
-        $_SESSION['usuario_login'] = $row['usuario'];
-        $_SESSION['senha_login'] = $row['senha'];
-        $_SESSION['nome_login'] = 'Rodrigo';
-        var_dump($_SESSION);
-        
 
+        if($usuario == $row['usuario'] && $senha == $row['senha']){
+            $_SESSION['usuario_login'] = $row['usuario'];
+            $_SESSION['senha_login'] = $row['senha'];
+            header('Location: http://localhost/cpainel/Views/Admin/Index.php');
+            exit();
+        }
+        else{
+            header('Location: http://localhost/cpainel/Index.php');
+            exit();
+        }
     }
+    
 
     public function resetPassword($email){
         //Aqui você vai verificar no banco se este email
@@ -40,7 +45,9 @@ class login{
         //header("Location: http://localhost/cpainel/index.php");
         echo $email;
     }
-}
+    
+}    
+
 
 /****************************************
  * METODOS ABAIXO SÃO AS FUNÇÕES PADRÕES

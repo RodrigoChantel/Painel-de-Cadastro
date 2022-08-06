@@ -1,12 +1,10 @@
 <?php
-include('../Model/Conection.php');
-session_start();
-class create{
+include('/xampp/htdocs/CPainel/Model/Conection.php');
+//session_start();
+class EmpresaController{
     public function empresas($p1, $p2, $p3, $p4){
         if($p1 == null || $p2 == null || $p3 == null || $p4 == null){
             header("location: http://localhost/cpainel/views/naofunciona.php");
-            
-            //return false;
         }
         $this->sendWithDB($p1, $p2, $p3, $p4);
     }
@@ -25,7 +23,8 @@ class create{
         
         $checkIfCompanyExists = mysqli_query($conexao2, $queryDB);
         $count = mysqli_num_rows($checkIfCompanyExists);
-        $count2 = mysqli_fetch_assoc($checkIfCompanyExists);
+        
+
         if($count >= 1){
             //header("location: http://localhost/cpainel/views/funciona.php");
             echo "Empresa já existe!";
@@ -41,6 +40,39 @@ class create{
             echo "Error:'{$registerCompany->error}'";
         }
 
+    }
+
+    public function listaEmpresas(){
+        $conexao = new Conection;
+        $conexao = $conexao->conect();
+        $sql = "select * from `empresa`";
+        
+        $resultQuery = $conexao->query($sql);
+        $resultAssoc = $resultQuery->fetch_all(MYSQLI_ASSOC);
+
+        //$querySQL = "Select id from empresa";
+        //$checklist = mysqli_query($conexao, $querySQL);
+        //$enum = mysqli_fetch_assoc($checklist);
+        
+        return $resultAssoc;
+        //return $enum
+    }
+
+    public function nEmpresas(){
+        $conexao = new Conection;
+        $conexao = $conexao->conect();
+        $querySQL = "Select id from empresa";
+        $checklist = mysqli_query($conexao, $querySQL);
+        $enum = mysqli_num_rows($checklist);
+        echo $enum;
+        /*if($checklist > 0)
+            while($enum = mysqli_fetch_assoc($checklist)){
+            return $enum;
+        }
+        else{
+            echo "Erro de conexão";
+        }
+        */
     }
     
     

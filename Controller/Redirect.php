@@ -1,8 +1,5 @@
 <?php
-//$_POST['page'];
-//$_POST['name'];
-//$_POST['password'];
-
+//Login
 if($_POST['page'] == "login"){
     include('./Login.php');
     $x = new Login;
@@ -23,13 +20,24 @@ if($_POST['page'] == "esqueciSenha"){
 //Cadastro de empresa
 if($_POST['page'] == 'cadastroemp'){
     include('./EmpresaController.php');
-    $cademp = new create;
+    $cademp = new EmpresaController;
     $cademp->empresas(
         $_POST['nomeEmpresa'],
         $_POST['enderecoEmpresa'],
         $_POST['cnpj'],
         $_POST['telEmpresa']
+    );   
+}
+//Cadastro de funcionarios
+if($_POST['page'] == 'cadastrofunc'){
+    include('./Controller/FuncionarioController.php');
+    $cadfunc = new FuncionarioController;
+    $cadfunc->funcionarios(
+        $_POST['nome'],
+        $_POST['sobrenome'],
+        $_POST['RG'],
+        $_POST['email'],
+        $_POST['empresa']
     );
-    
 }
 

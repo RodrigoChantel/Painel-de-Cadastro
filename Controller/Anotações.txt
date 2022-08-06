@@ -3,3 +3,4 @@ precisa redirecionar página para "Index.php".
 
 POST = Enviar formulário
 GET = Uma tela aberta. Serve para buscas.
+FUNCIONAL

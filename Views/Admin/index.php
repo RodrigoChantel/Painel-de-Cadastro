@@ -129,9 +129,9 @@ include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
                 <td><?php echo $inner['email']; ?></td>
                 <td><?php echo $inner['razaosocial']; ?></td>
                 <td style="text-align: center;">
-                    <button onclick="EditarFuncionario('edit-click')"><?php echo "<a target='conteudo' href='http://localhost/cpainel/controller/Redirect.php?page=editarFuncionario&id={$inner['ID_Funcionario']}'>&#9775;</a>"?></button>
+                    <?php echo "<a href='http://localhost/cpainel/controller/Redirect.php?page=editarFuncionario&id2={$inner['ID_Funcionario']}'>&#9775;</a>"?>
                     &nbsp; 
-                    <button><?php echo "<a href='http://localhost/cpainel/controller/Redirect.php?page=deleteFuncionario&id={$inner['ID_Funcionario']}'>&#9760;</a>"?></button>
+                    <?php echo "<a href='http://localhost/cpainel/controller/Redirect.php?page=deleteFuncionario&id={$inner['ID_Funcionario']}'>&#9760;</a>"?>
                 </td>
             </tr>
         </tbody>
@@ -171,42 +171,6 @@ include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
         };
         ?>
         </table>    
-        </div>
-        <div class="editar-funcionarios" id="edit-click">
-        <input type="submit" value="&#10006;" onclick="FecharEditarFuncionario('edit-click')"/>
-        <iframeset cols="20%,*">
-                <iframe name="conteudo" >
-                
-            <form action="http://localhost/cpainel/controller/Redirect.php/" method="GET" name="conteudo">
-                <input type="hidden" value="editarFuncionario" name="page"/>
-                <?php
-
-                    $edicaoDeFuncionario = new FuncionarioController;
-                    foreach ($edicaoDeFuncionario->editfunc($id) as $visualizarFuncionarios){
-                
-                ?>
-                
-                <input type="text" placeholder="<?php echo $visualizarFuncionarios['nome'];?>">
-                <input type="text" placeholder="<?php echo $visualizarFuncionarios['sobrenome'];?>">
-                <input type="text" placeholder="<?php echo $visualizarFuncionarios['email'];?>">
-                <input type="text" placeholder="<?php echo $visualizarFuncionarios['rg'];?>">
-                <select class="select-input">
-                    <?php
-                        $empresa = new EmpresaController;
-                        foreach ($empresa->listaEmpresas() as $emp) {
-                            echo "<option value='{$emp['id']}'>";
-                            echo $emp['razaosocial'];
-                            echo "</option>";
-                        }
-                    ?><br>
-                </select>
-                <button>ALTERAR</button>
-                <?php
-                    }
-                ?>
-            </form>
-                </iframe>
-            </iframeset>
         </div>
     </div>
     </section>

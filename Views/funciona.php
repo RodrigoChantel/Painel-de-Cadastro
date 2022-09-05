@@ -1,3 +1,9 @@
+<?php 
+include_once("/xampp/htdocs/CPainel/Model/Autentication.php");
+include_once("/xampp/htdocs/CPainel/Controller/EmpresaController.php");
+include_once("/xampp/htdocs/CPainel/Controller/FuncionarioController.php");
+include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,10 +13,6 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Conexão funciona perfeitamente.</h1>
-    <?php
-    echo "Testando funcionamento";
-    var_dump($row['razaosocial']);
-    ?>
+    
 </body>
 </html>

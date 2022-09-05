@@ -54,7 +54,21 @@ if($_GET['page'] == 'editarFuncionario'){
     include('../Controller/funcionarioController.php');
     $editFunc = new FuncionarioController;
     $editFunc->editfunc(
-        $_GET['id']
+        $_GET['id2']
     );
-    die;
 }
+
+if($_POST['page'] == 'editarFuncionario2'){
+    include('../Controller/FuncionarioController.php');
+    $cadfunc = new FuncionarioController;
+    $cadfunc->editarFuncionarios(
+        $_POST['nome'],
+        $_POST['sobrenome'],
+        $_POST['rg'],
+        $_POST['email'],
+        $_POST['empresa']
+    );
+    echo $_POST['nome'];
+
+}
+

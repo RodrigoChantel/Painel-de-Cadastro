@@ -29,28 +29,28 @@ include_once("/xampp/htdocs/CPainel/Controller/FuncionarioController.php");
                 ?>
         <div class="campo">
         <form action="http://localhost/cpainel/controller/Redirect.php/" method="POST" >
-            <input type="hidden" value="editarFuncionario2" name="page"/>
+            <input type="hidden" value="acaoCadastro" name="pagina"/>
             <fieldset>    
 
                 <fieldset  class="grupo">
                     <div class="campo">
                         <label for="nome">Nome</label>
-                        <input value="<?php echo $listaEmpresa['nome'];?>" type="text" placeholder="<?php echo $listaEmpresa['nome'];?>">
+                        <input name="nome" value="<?php echo $listaEmpresa['nome'];?>" type="text" placeholder="<?php echo $listaEmpresa['nome'];?>">
                         <label for="nome">Sobrenome</label>
-                        <input value="<?php echo $listaEmpresa['sobrenome'];?>" type="text" placeholder="<?php echo $listaEmpresa['sobrenome'];?>">
+                        <input name="sobrenome" value="<?php echo $listaEmpresa['sobrenome'];?>" type="text" placeholder="<?php echo $listaEmpresa['sobrenome'];?>">
                     </div>
                 </fieldset>
                 <fieldset  class="grupo">
                     <div class="campo">
                         <label for="nome">E-mail</label>
-                        <input value="<?php echo $listaEmpresa['email'];?>" type="text" placeholder="<?php echo $listaEmpresa['email'];?>">
+                        <input name="email" value="<?php echo $listaEmpresa['email'];?>" type="text" placeholder="<?php echo $listaEmpresa['email'];?>">
                         <label for="nome">RG</label>
-                        <input value="<?php echo $listaEmpresa['rg'];?>" type="text" placeholder="<?php echo $listaEmpresa['rg'];?>">
+                        <input name="RG" value="<?php echo $listaEmpresa['rg'];?>" type="text" placeholder="<?php echo $listaEmpresa['rg'];?>">
                     </div>
                 </fieldset>
                 <fieldset  class="grupo">
                     <div class="campo">
-                        <select class="select">
+                        <select class="select" name="empresa">
                             <?php
                                 $empresa = new EmpresaController;
                                 foreach ($empresa->listaEmpresas() as $emp) {
@@ -65,7 +65,7 @@ include_once("/xampp/htdocs/CPainel/Controller/FuncionarioController.php");
                 <button type="submit" class="Entrar-login">ALTERAR</button>
                 <a href="http://localhost/cpainel/views/admin/index.php" class="Entrar-login">VOLTAR</a>
                 <?php
-                    }
+                }
                 ?>
             </fieldset>
             </form>

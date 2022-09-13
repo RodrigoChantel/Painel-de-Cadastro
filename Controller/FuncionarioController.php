@@ -75,20 +75,6 @@ class FuncionarioController{
         $checkAssoc = $check->fetch_all(MYSQLI_ASSOC); 
         return $checkAssoc;
     }
-
-    public function editfunc($id2){
-        $conexao = new Conection;
-        $conexao = $conexao->conect();
-        $idReturn = mysqli_real_escape_string($conexao, $id2);
-        $sqlQuery = "select * from funcionarios where ID_Funcionario = '{$idReturn}'";
-        $result = $conexao->query($sqlQuery);
-        $cheklist = $result->fetch_all(MYSQLI_ASSOC);
-        if($result == true){
-            header("location: http://localhost/cpainel/views/admin/editar.php?edicao=$id2");
-        }else{
-            echo "deu ruim";
-        }
-    }
     
 
     public function editarFuncionarios($nome, $sobrenome, $rg, $email, $empresa){
@@ -123,6 +109,17 @@ class FuncionarioController{
             }
         }
     }
-    
-
 }
+
+
+class dados{
+    public function editfunc(){
+    $dados = $_GET['edicao'];
+    $conexao = new Conection;
+    $conexao = $conexao->conect();
+    $idReturn = mysqli_real_escape_string($conexao, $dados);
+    $sqlQuery = "select * from funcionarios where ID_Funcionario = '{$idReturn}'";
+    $result = $conexao->query($sqlQuery);
+    $cheklist = $result->fetch_all(MYSQLI_ASSOC);
+    return $cheklist;
+    }}

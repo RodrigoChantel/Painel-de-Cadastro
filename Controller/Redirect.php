@@ -50,25 +50,20 @@ if($_GET['page'] == 'deleteFuncionario'){
     ); 
 }
 
-if($_GET['page'] == 'editarFuncionario'){
-    include('../Controller/funcionarioController.php');
-    $editFunc = new FuncionarioController;
-    $editFunc->editfunc(
-        $_GET['id2']
-    );
-}
 
-if($_POST['page'] == 'editarFuncionario2'){
+
+if($_GET['pagina'] == 'acaoCadastro'){
     include('../Controller/FuncionarioController.php');
     $cadfunc = new FuncionarioController;
-    $cadfunc->editarFuncionarios(
+    $cadfunc->sendWhitDB(
         $_POST['nome'],
         $_POST['sobrenome'],
-        $_POST['rg'],
+        $_POST['RG'],
         $_POST['email'],
         $_POST['empresa']
     );
-    echo $_POST['nome'];
 
+
+    
 }
 

@@ -45,15 +45,18 @@ include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
         </div>
         <div class="img2">
         <img src="http://localhost/cpainel/public/img/edit002.png" class="imgs002">
-        <p>Atualmente Existem<br><?php
+        <p>Atualmente Existem
+            <br>
+            <?php
             
             $enum = new FuncionarioController;
             $enum->nFuncionarios();
             foreach ($enum as $numeroDeFuncionarios){
                 echo $numeroDeFuncionarios;
             };
-        ?>
-        <br> Funcionários Registrados</p>
+            ?>
+            <br> 
+            Funcionários Registrados</p>
         </div>
         </div>
     </div>
@@ -104,6 +107,13 @@ include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
 
     <div id="consulta-click" class="content-box-consulta">
         <p class="pFunc">FUNCIONÁRIOS</p>
+        <div class="buscar">
+            <form action="http://localhost/cpainel/Views/Admin/return.php/" method="GET">
+            <input type="hidden" name="page" value="seach">
+            <input type="text" name="buscador" placeholder="Buscar Funcionário por Nome" class="busca">
+            <button>&#128270; Buscar</button>
+            </form>
+        </div>
         <div class="consultasFE">
         <table border="1">
         <thead>
@@ -129,9 +139,9 @@ include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
                 <td><?php echo $inner['email']; ?></td>
                 <td><?php echo $inner['razaosocial']; ?></td>
                 <td style="text-align: center;">
-                    <?php echo "<a href='http://localhost/cpainel/controller/Redirect.php?page=editarFuncionario&id2={$inner['ID_Funcionario']}'>&#9775;</a>"?>
+                    <?php echo "<a href='http://localhost/cpainel/controller/Redirect.php?page=editarFuncionario&id={$inner['ID_Funcionario']}'>&#9998;</a>"?>
                     &nbsp; 
-                    <?php echo "<a href='http://localhost/cpainel/controller/Redirect.php?page=deleteFuncionario&id={$inner['ID_Funcionario']}'>&#9760;</a>"?>
+                    <?php echo "<a href='http://localhost/cpainel/controller/Redirect.php?page=deleteFuncionario&id={$inner['ID_Funcionario']}'>&#10006;</a>"?>
                 </td>
             </tr>
         </tbody>
@@ -142,6 +152,13 @@ include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
         </div>
 
         <p class="pEmp">EMPRESAS</p>
+        <div class="buscarE">
+            <form action="http://localhost/cpainel/Views/Admin/return.php/" method="GET">
+            <input type="hidden" name="page" value="seachE">
+            <input type="text" name="buscador" placeholder="Buscar Empresa por Nome" class="busca">
+            <button>&#128270; Buscar</button>
+            </form>
+        </div>
         <div class="consultasFEE">
         <table border="1">
         <thead>
@@ -151,6 +168,7 @@ include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
                 <th>ENDEREÇO</th>
                 <th>CNPJ</th>
                 <th>TELEFONE</th>
+                <th>AÇÕES</th>
             </tr>
         </thead>
         <?php
@@ -165,6 +183,11 @@ include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
                 <td><?php echo $listaEmpresa['endereco']; ?></td>
                 <td><?php echo $listaEmpresa['cnpj']; ?></td>
                 <td><?php echo $listaEmpresa['telefone']; ?></td>
+                <td style="text-align: center;">
+                    <?php echo "<a href='http://localhost/cpainel/controller/Redirect.php?page=editarEmpresa&id={$listaEmpresa['id']}'>&#9998;</a>"?>
+                    &nbsp; 
+                    <?php echo "<a href='http://localhost/cpainel/controller/Redirect.php?page=deleteEmpresa&id={$listaEmpresa['id']}'>&#10006;</a>"?>
+                </td>
             </tr>
         </tbody>
         <?php

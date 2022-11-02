@@ -32,13 +32,7 @@ class FuncionarioController{
                             VALUES ('{$nomecad}','{$sobrenomecad}', '{$rgcad}', '{$emailcad}', '{$empresacad}')";
         $registerEmployees = mysqli_query($conexao, $insertEmployees);
         if($registerEmployees == true){
-            echo "Funcionário cadastrado com sucesso!<br>";
-            echo "Aguarde o redirecionamento...";
-            echo "<script>
-                setTimeout(function() {
-                window.location.href = 'http://localhost/cpainel/views/admin/index.php';
-                }, 4000);
-            </script>";
+            echo "<script type='text/javascript'>alert('Você cadastrou o $nomecad com sucesso.');location='http://localhost/cpainel/views/admin/index.php';</script>";
         }
         else{
             echo "Error:'{$registerEmployees->error}'";
@@ -77,7 +71,7 @@ class FuncionarioController{
     }
     
 
-    public function editarFuncionarios($nome, $sobrenome, $rg, $email, $empresa){
+    public function funcionarioEdit($idcad, $nome, $sobrenome, $rg, $email, $empresa){
         $conexao = new Conection;
         $conexao = $conexao->conect();
         $nomecad = mysqli_real_escape_string($conexao, $nome);
@@ -86,40 +80,64 @@ class FuncionarioController{
         $emailcad = mysqli_real_escape_string($conexao, $email);
         $empresacad = mysqli_real_escape_string($conexao, $empresa);
 
-        $queryDB = "select * from funcionarios where rg = '{$rgcad}' or email = '{$emailcad}'";
-        $checkEmployees = mysqli_query($conexao, $queryDB);
-        $count = mysqli_num_rows($checkEmployees);
+        $update = "UPDATE funcionarios SET nome='$nomecad', sobrenome='$sobrenomecad', rg='$rgcad', email='$emailcad', empresa='$empresacad' where ID_Funcionario=$idcad";
+        $registerEmployees = mysqli_query($conexao, $update);
+        if($registerEmployees == true){
+            echo "<script type='text/javascript'>alert('As alterações em $nomecad foram salvas.');location='http://localhost/cpainel/views/admin/index.php';</script>";
+        }else{
+            echo "deu ruim";
+        }
 
-        if($count >= 1){
-            $insertEmployees = "UPDATE funcionarios (nome, sobrenome, rg, email, empresa) 
-                            VALUES ('{$nomecad}','{$sobrenomecad}', '{$rgcad}', '{$emailcad}', '{$empresacad}')
-                            WHERE ID_Funcionario = ";
-            $registerEmployees = mysqli_query($conexao, $insertEmployees);
-            if($registerEmployees == true){
-                echo "Funcionário cadastrado com sucesso!<br>";
-                echo "Aguarde o redirecionamento...";
-                echo "<script>
-                    setTimeout(function() {
-                    window.location.href = 'http://localhost/cpainel/views/admin/index.php';
-                    }, 4000);
-                </script>";
-            }
-            else{
-                echo "Error:'{$registerEmployees->error}'";
-            }
+    }
+
+    public function editfunc($aaa){
+        $conexao = new Conection;
+        $conexao = $conexao->conect();
+        $idReturn = mysqli_real_escape_string($conexao, $aaa['id']);
+        $sqlQuery = "select * from funcionarios where ID_Funcionario = '{$idReturn}'";
+        $result = $conexao->query($sqlQuery);
+        $cheklist = $result->fetch_all(MYSQLI_ASSOC);
+        return $cheklist;
+    }
+
+    public function show(){
+        $conexao = new Conection;
+        $conexao = $conexao->conect();
+        $emp = new FuncionarioController;
+        $emp = $emp->editfunc($_GET);
+        $emp = $emp[0];
+
+        $idReturn = mysqli_real_escape_string($conexao, $emp['empresa']);
+        $sqlQuery = "select * from empresa where id = '{$idReturn}'";
+        $result = $conexao->query($sqlQuery);
+        $cheklist = $result->fetch_all(MYSQLI_ASSOC);
+        $cheklist = $cheklist[0];
+        return $cheklist;
+    }
+
+    public function buscadorFuncionario($buscaNome){
+        if($buscaNome == NULL){
+            echo "<script type='text/javascript'>alert('Não é possível buscar por campo vazio!  Levaremos você de volta para página inicial.');location='http://localhost/cpainel/views/admin/index.php';</script>";
+        }else{
+        $conexao = new Conection;
+        $conexao = $conexao->conect();
+        $transformaEmString = mysqli_real_escape_string($conexao, $buscaNome);
+        $sqlQuery = "select * from funcionarios where nome like '%{$transformaEmString}%' ";
+        $buscador = $conexao->query($sqlQuery);
+        $resultado = $buscador->fetch_all(MYSQLI_ASSOC);
+
+        foreach ($resultado as $result){
+            echo "<hr>" . $result['nome'] . "&nbsp;" . $result['sobrenome'] . 
+            "&nbsp; &nbsp;" .
+            "<a href='http://localhost/cpainel/controller/Redirect.php?page=editarFuncionario&id={$result['ID_Funcionario']}'>&#9998;</a>" .
+            "&nbsp; &nbsp;" . 
+            "<a href='http://localhost/cpainel/controller/Redirect.php?page=deleteFuncionario&id={$result['ID_Funcionario']}'>&#10006;</a>" . "<hr>";
+            //header("location: http://localhost/cpainel/views/Admin/return.php?result={$result['nome']}{$result['sobrenome']} ");
+
+        }
+
         }
     }
+
 }
 
-
-class dados{
-    public function editfunc(){
-    $dados = $_GET['edicao'];
-    $conexao = new Conection;
-    $conexao = $conexao->conect();
-    $idReturn = mysqli_real_escape_string($conexao, $dados);
-    $sqlQuery = "select * from funcionarios where ID_Funcionario = '{$idReturn}'";
-    $result = $conexao->query($sqlQuery);
-    $cheklist = $result->fetch_all(MYSQLI_ASSOC);
-    return $cheklist;
-    }}

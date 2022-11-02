@@ -52,18 +52,48 @@ if($_GET['page'] == 'deleteFuncionario'){
 
 
 
-if($_GET['pagina'] == 'acaoCadastro'){
+if($_GET['page'] == 'editarFuncionario'){
+    header("location: http://localhost/cpainel/views/admin/editar.php?id=".$_GET['id']);
+}
+
+if($_POST['pagina'] == 'acaoCadastro'){
     include('../Controller/FuncionarioController.php');
     $cadfunc = new FuncionarioController;
-    $cadfunc->sendWhitDB(
+    $cadfunc->funcionarioEdit(
+        $_POST['ID_Funcionario'],
         $_POST['nome'],
         $_POST['sobrenome'],
         $_POST['RG'],
         $_POST['email'],
         $_POST['empresa']
     );
-
-
     
 }
 
+if($_GET['page'] == 'editarEmpresa'){
+    
+}
+
+if($_GET['page'] == 'deleteEmpresa'){
+    include('../Controller/DeleteController.php');
+    $empID = new DeleteController;
+    $empID->deleteCompany($_GET['id']);
+}
+
+if($_GET['page'] == 'editarEmpresa'){
+    header("location: http://localhost/cpainel/views/admin/editarEmpresa.php?id=".$_GET['id']);
+}
+
+
+
+if($_GET['pagina'] == 'acaoCadastroEmp'){
+    include('../Controller/EmpresaController.php');
+    $cadfunc = new EmpresaController;
+    $cadfunc->cadastrarNovosDados(
+        $_GET['id'],
+        $_GET['razaosocial'],
+        $_GET['endereco'],
+        $_GET['CNPJ'],
+        $_GET['telefone']
+    );
+}

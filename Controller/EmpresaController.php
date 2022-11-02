@@ -25,27 +25,14 @@ class EmpresaController{
         
 
         if($count >= 1){
+            echo "<script type='text/javascript'>alert('A empresa $nomeEmpresa já possui cadastro em nosso sistema.');location='http://localhost/cpainel/views/admin/index.php';</script>";
             //header("location: http://localhost/cpainel/views/funciona.php");
-            echo "Empresa já existe!<br><br>";
-            echo "Aguarde o redirecionamento...";
-            echo "<script>
-                setTimeout(function() {
-                window.location.href = 'http://localhost/cpainel/views/admin/index.php';
-                }, 3000);
-            </script>";
-            die;
         }
         
         $insertCompany = "INSERT INTO empresa (razaosocial, endereco, cnpj, telefone) VALUES ('{$nomeEmpresa}', '{$enderecoEmpresa}', '{$cnpj}', '{$telefone}')";
         $registerCompany = mysqli_query($conexao2, $insertCompany);
         if($registerCompany === true){
-            echo "Empresa cadastrada com sucesso!<br><br>";
-            echo "Aguarde o redirecionamento...";
-            echo "<script>
-                setTimeout(function() {
-                window.location.href = 'http://localhost/cpainel/views/admin/index.php';
-                }, 4000);
-            </script>";
+            echo "<script type='text/javascript'>alert('A empresa $nomeEmpresa foi cadastrada com sucesso.');location='http://localhost/cpainel/views/admin/index.php';</script>";
             
         }
         else{
@@ -79,8 +66,51 @@ class EmpresaController{
         echo $enum;
     }
     
+
+    public function buscadorEmpresa($empresa){
+        if($empresa == NULL){
+            echo "<script type='text/javascript'>alert('Não é possível buscar por campo vazio!  Levaremos você de volta para página inicial.');location='http://localhost/cpainel/views/admin/index.php';</script>";
+        }else{
+            $conexao = new Conection;
+            $conexao = $conexao->conect();
+            $buscador = mysqli_real_escape_string($conexao, $empresa);
+            $sqlQuery = "select * from empresa where razaosocial like'%{$buscador}%' ";
+            $executarQuery = $conexao->query($sqlQuery);
+            $resultado = $executarQuery->fetch_all(MYSQLI_ASSOC);
+            foreach ($resultado as $buscaEmpresa){
+                echo "<hr>" . $buscaEmpresa['razaosocial'] . "<hr>";
+            }
+        }
+    }
     
-    
+    public function editarEmpresa($idEmp){
+        $conexao = new Conection;
+        $conexao = $conexao->conect();
+        $converte = mysqli_real_escape_string($conexao, $idEmp['id']);
+        $sql = "select * from empresa where id = $converte ";
+        $executeQuery = $conexao->query($sql);
+        $result = $executeQuery->fetch_all(MYSQLI_ASSOC);
+        return $result;
+    }
+
+    public function cadastrarNovosDados($idGet, $razaosocialGet, $enderecoGet, $cnpjGet, $telefoneGet){
+        $conexao = new Conection;
+        $conexao = $conexao->conect();
+        $razaosocial = mysqli_real_escape_string($conexao, $razaosocialGet);
+        $endereco = mysqli_real_escape_string($conexao, $enderecoGet);
+        $cnpj = mysqli_real_escape_string($conexao, $cnpjGet);
+        $telefone = mysqli_real_escape_string($conexao, $telefoneGet);
+
+        $update = "UPDATE empresa SET razaosocial='$razaosocial', endereco='$endereco', cnpj='$cnpj', telefone='$telefone' where id=$idGet";
+        $registerEmployees = mysqli_query($conexao, $update);
+        if($registerEmployees == true){
+            echo "<script type='text/javascript'>alert('Você alterou os dados da empresa  $razaosocial com sucesso.');location='http://localhost/cpainel/views/admin/index.php';</script>";
+
+        }else{
+            echo "deu ruim";
+        }
+
+    }
 }
 
 

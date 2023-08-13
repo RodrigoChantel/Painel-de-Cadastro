@@ -1,2 +1,0 @@
-# Painel.AdventureGamez
-# Painel.AdventureGamez

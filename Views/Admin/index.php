@@ -3,6 +3,7 @@ include_once("/xampp/htdocs/CPainel/Model/Autentication.php");
 include_once("/xampp/htdocs/CPainel/Controller/EmpresaController.php");
 include_once("/xampp/htdocs/CPainel/Controller/FuncionarioController.php");
 include_once("/xampp/htdocs/CPainel/Controller/DeleteController.php");
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
